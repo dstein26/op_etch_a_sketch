@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Etch-A-Sketch</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script src="etch_a_sketch.js" async defer></script>
+        <content>
+            <header class="theme_main"><h1>Etch-A-Sketch</h1></header>
+            <!-- Main Content conainer -->
+            <div class="main_content theme_main">
+                <!-- Options. Allows user to change settings -->
+                <div class="options theme_main">
+                    <button onclick="clearAllPixels()">Clear</button>
+                </div> <!-- End Options -->
+
+                <!-- Canvas container. For holding and positioning the canvas -->
+                <div class="canvas_container theme_main">
+                    <!-- Canvas. Will hold sub divs that will act as pixels -->
+                    <div id="canvas" class="canvas">
+                        <!-- <div id="pixel" class="pixel theme_main"></div> -->
+                    </div>
+                </div>
+            </div>  <!-- End Main Content-->
+            <footer class="theme_main">
+                <small>©2023 Dan Stein. All Rights Reserved.</small>
+            </footer>
+        </content>
+    </body>
+</html>

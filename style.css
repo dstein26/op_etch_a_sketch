@@ -1,0 +1,98 @@
+html, body
+{
+    background-color: blueviolet;
+    padding: 0;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /*height:auto;*/
+    box-sizing: border-box;
+}
+
+content
+{
+    display:flex;
+    height:100%;
+    flex-direction: column;
+}
+
+header
+{
+    display:flex;
+    justify-content: center;
+    height:5rem;
+    border: 2px;
+    border-style: solid;
+    flex:0;
+}
+
+footer
+{
+    height:2rem;
+    display: flex;
+    flex:0;
+    border: 1px;
+    border-style: solid;
+}
+
+button
+{
+    height: 2rem;
+}
+
+.main_content
+{
+    display:flex;
+    flex:1;
+    overflow: scroll;
+}
+
+.options
+{
+    display:flex;
+    box-sizing: border-box;
+    width:20rem;
+    height:100%;
+    overflow: scroll;
+    justify-content: right;
+}
+
+.canvas_container
+{
+    display: flex;
+    box-sizing: border-box;
+    padding:2rem;
+    width: calc(100% - 10rem);
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas
+{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height:100%;
+    aspect-ratio: 1 / 1;
+    border: 2px;
+    border-style: solid;
+    overflow: hidden;
+    background-color: blueviolet; /* Obnoxious color to see if background is showing */
+    padding:0;
+}
+
+.pixel
+{
+    height:calc(10% - 2px);
+    aspect-ratio: 1 / 1;
+    border: 1px solid white;
+    background-color: gainsboro;
+}
+
+.theme_main
+{
+    background-color: gainsboro;
+    color: black;
+    border-color: black;
+}

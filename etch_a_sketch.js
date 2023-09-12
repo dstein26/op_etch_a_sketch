@@ -50,6 +50,7 @@ function addPixel()
 
 function pixelEvent(e)
 {
+    // Implementation from https://github.com/michalosman/etch-a-sketch
     if(e.type === 'mouseover' && !gMouseDown) return;
 
     setPixelColor(e.target, gColor);

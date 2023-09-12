@@ -36,6 +36,16 @@ footer
     border-style: solid;
 }
 
+select
+{
+    font-size: larger;
+}
+
+input
+{
+    height: 5rem;
+}
+
 .main_content
 {
     display:flex;
@@ -62,11 +72,6 @@ footer
     width: 12rem;
 }
 
-select
-{
-    font-size: larger;
-}
-
 .canvas_container
 {
     display: flex;
@@ -75,6 +80,7 @@ select
     width: calc(100% - 10rem);
     justify-content: center;
     align-items: center;
+    overflow: scroll;
 }
 
 .canvas

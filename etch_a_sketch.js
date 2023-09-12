@@ -2,21 +2,22 @@ console.log("Starting Etch-A-Sketch")
 
 // Get document elements
 const canvas = document.getElementById("canvas");
-const dim = [10, 10];
+const colorPicker = document.getElementById("colorPicker")
+const dim = 10
 
 // Pixel template
 const pixel = document.createElement("div");
 pixel.classList.add("pixel");
-
 const pixels = []; // Array to hold all the pixels placed
 
 // Global Variables
-let gColor = "black";
+let gColor = colorPicker.value;
 let gBgColor = "gainsboro";
 let gMouseDown = false;
 
 document.body.onmousedown = () => gMouseDown = true;
 document.body.onmouseup = () => gMouseDown = false;
+colorPicker.oninput = (e) => { gColor = e.target.value; }
 
 // Set up the grid
 createPixels();
@@ -24,12 +25,9 @@ createPixels();
 // Set up the array of pixels
 function createPixels()
 {
-    for(let ii = 0; ii < dim[0]; ii++)
+    for(let ii = 0; ii < dim; ii++)
     {
-        for(let jj = 0; jj < dim[1]; jj++)
-        {
-            addPixel();
-        }
+        pixels.push(addPixelRow());
     }
 
 }
@@ -42,10 +40,23 @@ function clearAllPixels()
 // Function to add a pixel element to the canvas
 function addPixel()
 {
-    pixels.push(canvas.appendChild(pixel.cloneNode()));
+    const p = canvas.appendChild(pixel.cloneNode());
 
-    pixels.slice(-1)[0].addEventListener("mousedown", pixelEvent);
-    pixels.slice(-1)[0].addEventListener("mouseover", pixelEvent);
+    p.addEventListener("mousedown", pixelEvent);
+    p.addEventListener("mouseover", pixelEvent);
+
+    return p
+}
+
+function addPixelRow()
+{
+    let row = [];
+    for(let ii = 0; ii < dim; ii++)
+    {
+        row.push(addPixel());
+    }
+
+    return row;
 }
 
 function pixelEvent(e)

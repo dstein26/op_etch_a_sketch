@@ -36,11 +36,6 @@ footer
     border-style: solid;
 }
 
-button
-{
-    height: 2rem;
-}
-
 .main_content
 {
     display:flex;
@@ -52,10 +47,24 @@ button
 {
     display:flex;
     box-sizing: border-box;
+    flex-direction: column;
     width:20rem;
     height:100%;
     overflow: scroll;
-    justify-content: right;
+    justify-content: center;
+    align-items:end;
+}
+
+.options > *
+{
+    margin: 5px 0 5px 0;
+    /* height: auto; /*5rem;*/
+    width: 12rem;
+}
+
+select
+{
+    font-size: larger;
 }
 
 .canvas_container

@@ -111,7 +111,14 @@ input
 
 .theme_main
 {
-    background-color: gainsboro;
-    color: black;
+    background-color: red;
+    color: gold;
     border-color: black;
 }
+
+/*
+.theme_main h1,h2
+{
+    -webkit-text-stroke: 2px black; 
+}
+*/

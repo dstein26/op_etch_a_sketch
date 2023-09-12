@@ -93,15 +93,19 @@ input
     border: 2px;
     border-style: solid;
     overflow: hidden;
-    background-color: blueviolet; /* Obnoxious color to see if background is showing */
+    /* background-color: blueviolet; /* Obnoxious color to see if background is showing */
+    background-color: white; /* Cheating since the back ground occasionally peaks through */
     padding:0;
 }
 
 .pixel
 {
-    height:calc(10% - 2px);
+    height:calc(10% - 1px);
     aspect-ratio: 1 / 1;
-    border: 1px solid white;
+    border: 0 1px 1px 0;
+    border-color: white;
+    border-style: dotted;
+    border-width: 1px;
     background-color: gainsboro;
 }
 

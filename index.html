@@ -20,7 +20,13 @@
                 <div class="options">
                     <div class="input-set">
                         <label for="resolution"><h2>Set resolution</h2></label>
-                        <input id="sliderResolution" type="range" min="16" max="128" value="16" name="resolution">
+                        <input id="sliderResolution" type="range" min="16" max="128" value="16" name="resolution" list="resolution-markers">
+                        <datalist id="resolution-markers">
+                            <option value="16"></option>
+                            <option value="32"></option>
+                            <option value="64"></option>
+                            <option value="128"></option>
+                        </datalist>
                     </div>
                     
                     <input type="color" id="colorPicker">

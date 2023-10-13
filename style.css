@@ -68,7 +68,7 @@ main
 {
     height:calc(100% - var(--footer-height) - var(--header-height));
     display:grid;
-    grid-template-columns: 15em 1fr;
+    grid-template-columns: 12em 1fr;
 }
 
 .options

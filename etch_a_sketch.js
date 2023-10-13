@@ -1,107 +1,85 @@
-console.log("Starting Etch-A-Sketch")
+console.log("Starting Etch-A-Sketch");
 
-// Get document elements
-const canvas = document.getElementById("canvas");
-const colorPicker = document.getElementById("colorPicker");
-const resolutionPicker = document.getElementById("resolution");
-
-// Pixel template
-const pixel = document.createElement("div");
-pixel.classList.add("pixel");
-const pixels = []; // Array to hold all the pixels placed
-
-// Global Variables
-let gColor = colorPicker.value;
-let gBgColor = "gainsboro";
-let gMouseDown = false;
-let gDim = 0;
-
-document.body.onmousedown = () => gMouseDown = true;
-document.body.onmouseup = () => gMouseDown = false;
-colorPicker.oninput = (e) => { gColor = e.target.value; }
-
-// Set up the grid
-createPixels();
-
-// Set up the array of pixels
-function createPixels()
+class EtchASketch 
 {
-    const newDim = parseInt(resolutionPicker.value);
+    // Document elements
+    canvas;
+    resolutionSlider;
+    pixelTemplate;
+    rowTemplate;
+    pixels;
 
-    if(newDim == gDim) return;
+    // Properties
+    resolution;
+    minPixelSize = 5;
 
-    // console.log("Pixels Dim: " + pixels.length + " x " + pixels.slice(-1)[0].length)
-
-    for(let ii = gDim-1; ii >= 0; ii--)
-    {
-        for(let jj = gDim-1; jj >= 0; jj--)
-        {
-            let p = pixels[ii].pop()
-            canvas.removeChild(p);
-        }
-
-        pixels.pop()
-    }
-
-    gDim = newDim;
-
-    for(let ii = 0; ii < gDim; ii++)
-    {
-        pixels.push(addPixelRow());
-    }
-
-    const len = 100 / gDim;
-    // Set pixel size
-    pixels.forEach((ps) => ps.forEach((p) => 
+    constructor()
     {
         
-        p.style.width = "calc(" + len + "% - 2px)";
-        p.style.height = "calc(" + len + "% - 2px)";
-    }))
-}
+    };
 
-function clearAllPixels()
-{
-    pixels.forEach((p) => clearPixel(p));
-}
-
-// Function to add a pixel element to the canvas
-function addPixel()
-{
-    const p = canvas.appendChild(pixel.cloneNode());
-
-    p.addEventListener("mousedown", pixelEvent);
-    p.addEventListener("mouseover", pixelEvent);
-
-    return p
-}
-
-function addPixelRow()
-{
-    let row = [];
-    for(let ii = 0; ii < gDim; ii++)
+    getDocumentElements()
     {
-        row.push(addPixel());
+        console.log("Populating document elements");
+        this.canvas = document.getElementById("canvas");
+        this.resolutionSlider = document.getElementById("sliderResolution");
+        this.pixelTemplate = document.createElement("div");
+        this.pixelTemplate.classList.add("pixel");
+        this.rowTemplate = document.createElement("div");
+        this.rowTemplate.classList.add("row");
+
+        this.pixels = new Array();
+
+        this.setResolution();
     }
 
-    return row;
+    setResolution()
+    {
+        this.resolution = this.resolutionSlider.value;
+
+        console.log(`Resolution set: ${this.resolution} x ${this.resolution}`);
+
+        const minSize = Math.min(this.canvas.clientHeight, this.canvas.clientWidth);
+        const pixelSize = Math.floor(minSize / this.resolution);
+
+        if (pixelSize < this.minPixelSize)
+        {
+            console.error("Resolution selected is too large");
+            return;
+        }
+        else
+        {
+            for(let ii = 0; ii < this.pixels.length; ii++)
+            {
+                const row = this.pixels.pop();
+                row.remove();
+            }
+
+            const pixelSize = [Math.floor(this.canvas.clientHeight / this.resolution), 
+                Math.floor(this.canvas.clientWidth / this.resolution)];
+            this.rowTemplate.replaceChildren();
+
+            this.rowTemplate.style = `grid-template-columns: repeat(${this.resolution}, 1fr)`;
+            this.canvas.style = `grid-template-rows: repeate(${this.resolution}, 1fr)`
+
+            for(let ii = 0; ii < this.resolution; ii++)
+            {
+                this.rowTemplate.appendChild(this.pixelTemplate.cloneNode(true));
+            }
+
+            for(let ii = 0; ii < this.resolution; ii++)
+            {
+                this.pixels[ii] = this.canvas.appendChild(this.rowTemplate.cloneNode(true));
+            }
+        }
+    }
 }
 
-function pixelEvent(e)
-{
-    // Implementation from https://github.com/michalosman/etch-a-sketch
-    if(e.type === 'mouseover' && !gMouseDown) return;
+const etchASketch = new EtchASketch();
 
-    setPixelColor(e.target, gColor);
-}
-
-function clearPixel(p)
-{
-    setPixelColor(p, gBgColor);
-}
-
-// Function to change background color of a pixel
-function setPixelColor(p, color)
-{
-    p.style.backgroundColor = color;
-}
+addEventListener("load", (e) => 
+    {
+        console.log("Content loaded.")
+        etchASketch.getDocumentElements();
+    }
+)

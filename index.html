@@ -15,32 +15,33 @@
         <content>
             <header class="theme_main"><h1>Etch-A-Sketch</h1></header>
             <!-- Main Content conainer -->
-            <div class="main_content theme_main">
+            <main class="theme_main">
                 <!-- Options. Allows user to change settings -->
-                <div class="options theme_main">
-                    <h2>Set Resolution:</h2>
-                    <select name="resolution" id="resolution">
-                        <option value="16" selected>16x16</option>
-                        <option value="32">32x32</option>
-                        <option value="64">64x64</option>
-                        <option value="128">128x128</option>
-                    </select>
-                    <button onclick="createPixels()"><h3>Set Resolution</h3></button>
-                    <div style="margin:20px"></div>
-                    <!-- <button><h2>Color Picker</h2></button> -->
-                    <input id="colorPicker" type="color" value="black" />
-                    <div style="margin:20px"></div>
-                    <button onclick="clearAllPixels()"><h3>Clear</h3></button>
+                <div class="options">
+                    <div class="input-set">
+                        <label for="resolution"><h2>Set resolution</h2></label>
+                        <input id="sliderResolution" type="range" min="16" max="128" value="16" name="resolution">
+                    </div>
+                    
+                    <input type="color" id="colorPicker">
+                    
+                    <div class="input-set">
+                        <div>
+                            <input id="showGrid" name="showGrid" type="checkbox">
+                            <label for="showGrid">Show Grid</label>
+                        </div>
+                    </div>
+
                 </div> <!-- End Options -->
 
                 <!-- Canvas container. For holding and positioning the canvas -->
-                <div class="canvas_container theme_main">
+                <div class="canvas_container">
                     <!-- Canvas. Will hold sub divs that will act as pixels -->
-                    <div id="canvas" class="canvas">
-                        <!-- <div id="pixel" class="pixel theme_main"></div> -->
+                    <div id="canvas">
+                        
                     </div>
                 </div>
-            </div>  <!-- End Main Content-->
+            </main>  <!-- End Main Content-->
             <footer class="theme_main">
                 <small>©2023 Dan Stein. All Rights Reserved. <a target="_blank" href="https://icons8.com/icon/HzPzzQ84vzT3/drawing">Drawing</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></small>
             </footer>

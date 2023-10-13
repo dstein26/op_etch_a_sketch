@@ -83,6 +83,8 @@ class EtchASketch
             
             this.rowTemplate.style = `grid-template-columns: repeat(${this.resolution}, 1fr)`;
             this.canvas.style = `grid-template-rows: repeate(${this.resolution}, 1fr)`
+            this.canvas.style.minWidth = `${5*this.resolution}px`;
+            this.canvas.style.minHeight = `${5*this.resolution}px`;
 
             if (this.showGrid)
             {

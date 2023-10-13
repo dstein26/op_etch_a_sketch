@@ -5,6 +5,7 @@
     --bg-color: red;
     --text-color: gold;
     --border-color:black;
+    --grid-color: grey;
 
     --header-height: 3rem;
     --footer-height: 1.4rem;
@@ -111,7 +112,7 @@ main
     border: 2px solid var(--text-color);
     overflow: hidden;
     /* background-color: blueviolet; /* Obnoxious color to see if background is showing */
-    background-color: var(--border-color); /* Cheating since the back ground occasionally peaks through */
+    background-color: var(--grid-color);
     padding:0;
 }
 

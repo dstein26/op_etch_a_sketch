@@ -9,13 +9,15 @@ class EtchASketch
     resolutionSlider;
     pixelTemplate;
     rowTemplate;
-    pixels;
+    // pixels;
     colorPicker;
+    showGridCB;
 
     // Properties
     resolution;
     minPixelSize = 5;
     sliderThrottle;
+    showGrid;
 
     constructor()
     {
@@ -29,7 +31,10 @@ class EtchASketch
         this.canvas.addEventListener("click", mouseEvent);
         this.canvas.addEventListener("mouseover", mouseEvent);
 
-        this.sliderThrottle = new Throttle(() => { this.resolutionEvent(); }, 1000);
+        this.showGridCB.addEventListener("input", ()=>{ this.showGrid = this.showGridCB.checked; });
+        this.showGrid = this.showGridCB.checked;
+
+        this.sliderThrottle = new Throttle(() => { this.setResolution(); }, 250);
         this.resolutionSlider.addEventListener("input", () => { this.sliderThrottle.throttle(); });
 
         this.colorPicker.addEventListener("input", updateColor);
@@ -41,8 +46,7 @@ class EtchASketch
         this.rowTemplate = document.createElement("div");
         this.rowTemplate.classList.add("row");
 
-        this.pixels = new Array();
-
+        // this.pixels = new Array();
         this.setResolution();
     }
 
@@ -52,36 +56,39 @@ class EtchASketch
         this.canvas = document.getElementById("canvas");
         this.resolutionSlider = document.getElementById("sliderResolution");
         this.colorPicker = document.getElementById("colorPicker");
+        this.showGridCB = document.getElementById("showGrid");
     }
 
     setResolution()
     {
-        this.resolution = this.resolutionSlider.value;
+        this.getUserResolution();
 
-        console.log(`Resolution set: ${this.resolution} x ${this.resolution}`);
-
-        const minSize = Math.min(this.canvas.clientHeight, this.canvas.clientWidth);
-        const pixelSize = Math.floor(minSize / this.resolution);
-
-        if (pixelSize < this.minPixelSize)
+        
+        if(this.checkPixelMinSize())
         {
-            console.error("Resolution selected is too large");
-            return;
-        }
-        else
-        {
+            /*
             for(let ii = 0; ii < this.pixels.length; ii++)
             {
                 const row = this.pixels.pop();
                 row.remove();
             }
+            */
+           // Clear Canvas
+           this.canvas.replaceChildren();
+           this.rowTemplate.replaceChildren();
 
+           // Calculate pixel div size
             const pixelSize = [Math.floor(this.canvas.clientHeight / this.resolution), 
                 Math.floor(this.canvas.clientWidth / this.resolution)];
-            this.rowTemplate.replaceChildren();
-
+            
             this.rowTemplate.style = `grid-template-columns: repeat(${this.resolution}, 1fr)`;
             this.canvas.style = `grid-template-rows: repeate(${this.resolution}, 1fr)`
+
+            if (this.showGrid)
+            {
+                this.rowTemplate.style.gap = '1px'
+                this.canvas.style.gap = '1px';
+            }
 
             for(let ii = 0; ii < this.resolution; ii++)
             {
@@ -90,16 +97,25 @@ class EtchASketch
 
             for(let ii = 0; ii < this.resolution; ii++)
             {
-                this.pixels[ii] = this.canvas.appendChild(this.rowTemplate.cloneNode(true));
+                // this.pixels[ii] = 
+                this.canvas.appendChild(this.rowTemplate.cloneNode(true));
             }
         }
         console.log("Done setting grid");
     }
 
-    resolutionEvent()
+    getUserResolution()
     {
         this.resolution = this.resolutionSlider.value;
-        console.log(`Resolution set to ${this.resolution} x ${this.resolution}`);
+        console.log(`Resolution set: ${this.resolution} x ${this.resolution}`);
+    }
+
+    checkPixelMinSize()
+    {
+        const minSize = Math.min(this.canvas.clientHeight, this.canvas.clientWidth);
+        const pixelSize = Math.floor(minSize / this.resolution);
+
+        return (pixelSize >= this.minPixelSize);
     }
 }
 
@@ -116,7 +132,7 @@ class MouseHandler
     setMouseState(state)
     {
         this.state = state;
-        console.log("Mouse state changed");
+        // console.log("Mouse state changed");
     }
 }
 
@@ -148,7 +164,7 @@ const mouseHandler = new MouseHandler();
 addEventListener("load", (e) => 
     {
         console.log("Content loaded.")
-        etchASketch.getDocumentElements();
+        etchASketch.initEtchASketch();
     }
 )
 
@@ -156,7 +172,7 @@ function mouseEvent(e)
 {
     // Implementation from https://github.com/michalosman/etch-a-sketch
     if (e.type === 'mouseover' && !mouseHandler.state) return;
-
+    if (!e.target.classList.contains("pixel")) return;
     e.target.style.backgroundColor = gColor;
     
 }

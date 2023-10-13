@@ -1,6 +1,7 @@
 :root
 {
     --pixel-base-color: gainsboro;
+    --pixel-hover-color: rgb(255, 255, 255);
     --bg-color: red;
     --text-color: gold;
     --border-color:black;
@@ -122,6 +123,11 @@ main
 .pixel
 {
     background-color: var(--pixel-base-color);
+}
+
+.pixel:hover
+{
+    background-color: var(--pixel-hover-color);
 }
 
 .theme_main
